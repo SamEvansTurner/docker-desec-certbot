@@ -43,10 +43,12 @@ check_permissions() {
 # Check write permissions for critical directories
 echo "Checking permissions..."
 check_permissions "/etc/letsencrypt" || exit 1
-check_permissions "/var/log/letsencrypt" || exit 1
 check_permissions "/certs" || exit 1
 echo "✓ All permissions OK"
 echo ""
+
+# Create subdirectories within volume mounts (after permission check)
+mkdir -p /etc/letsencrypt/logs
 
 # Create credentials file from environment variable
 CREDENTIALS_FILE="/etc/letsencrypt/desec-credentials.ini"
@@ -110,10 +112,11 @@ echo "Initial setup complete!"
 echo "==================================================="
 
 # Run initial renewal check and copy certificates
-/usr/local/bin/renew-certs.sh
+# Use tee to show output and log it
+/usr/local/bin/renew-certs.sh 2>&1 | tee -a /etc/letsencrypt/logs/renewal.log
 
 # Set up cron job for the current user
-echo "0 2 * * * /usr/local/bin/renew-certs.sh >> /var/log/letsencrypt/renewal.log 2>&1" | crontab -
+echo "0 2 * * * /usr/local/bin/renew-certs.sh >> /etc/letsencrypt/logs/renewal.log 2>&1" | crontab -
 
 echo "==================================================="
 echo "Starting automatic renewal service..."

@@ -259,7 +259,7 @@ docker exec certbot-desec certbot certonly \
 ### View Renewal Logs
 
 ```bash
-docker exec certbot-desec cat /var/log/letsencrypt/renewal.log
+docker exec certbot-desec cat /etc/letsencrypt/logs/renewal.log
 ```
 
 ## Updating

@@ -8,9 +8,8 @@ RUN apk add --no-cache \
     bash \
     && pip3 install --no-cache-dir --break-system-packages certbot-dns-desec
 
-# Create directories
-# Ownership will be determined by the user running the container
-RUN mkdir -p /etc/letsencrypt /var/log/letsencrypt /certs
+# Note: Volume mount directories (/etc/letsencrypt, /certs) are created automatically by Docker
+# Subdirectories are created at runtime in entrypoint.sh
 
 # Copy scripts
 COPY scripts/renew-certs.sh /usr/local/bin/renew-certs.sh
