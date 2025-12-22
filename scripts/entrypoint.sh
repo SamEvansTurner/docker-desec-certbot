@@ -49,6 +49,7 @@ echo ""
 
 # Create subdirectories within volume mounts (after permission check)
 mkdir -p /etc/letsencrypt/logs
+mkdir -p /etc/letsencrypt/work
 
 # Create credentials file from environment variable
 CREDENTIALS_FILE="/etc/letsencrypt/desec-credentials.ini"
@@ -96,6 +97,7 @@ for domain in "${DOMAIN_ARRAY[@]}"; do
           --email "$EMAIL" \
           --cert-name "$cert_name" \
           --logs-dir /etc/letsencrypt/logs \
+          --work-dir /etc/letsencrypt/work \
           -d "$domain"
         
         if [ $? -eq 0 ]; then
