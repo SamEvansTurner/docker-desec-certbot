@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+echo "TIMEZONE: $TZ"
 echo "[$(date)] Starting certificate renewal check..."
 
 # Renew all certificates (Certbot only renews if <30 days remaining)

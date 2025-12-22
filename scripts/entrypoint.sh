@@ -141,7 +141,7 @@ while true; do
     # Add current minutes to be more precise
     current_min=$(date +%M)
     sleep_seconds=$(((hours_until_2am * 3600) - (current_min * 60)))
-    
+    echo "Current time: $(date)"
     echo "Next renewal check in approximately $hours_until_2am hours"
     sleep $sleep_seconds
     

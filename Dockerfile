@@ -5,6 +5,7 @@ RUN apk add --no-cache \
     certbot \
     py3-pip \
     bash \
+    tzdata \
     && pip3 install --no-cache-dir --break-system-packages certbot-dns-desec
 
 # Note: Volume mount directories (/etc/letsencrypt, /certs) are created automatically by Docker
