@@ -1,0 +1,22 @@
+# Credentials files (NEVER commit these!)
+desec-credentials.ini
+.env
+*.key
+*.pem
+
+# Let's Encrypt data
+letsencrypt/
+
+# Certificate output
+certs/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
