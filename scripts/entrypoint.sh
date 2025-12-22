@@ -118,13 +118,21 @@ echo "==================================================="
 # Use tee to show output and log it
 /usr/local/bin/renew-certs.sh 2>&1 | tee -a /etc/letsencrypt/logs/renewal.log
 
-# Set up cron job for the current user
-echo "0 2 * * * /usr/local/bin/renew-certs.sh >> /etc/letsencrypt/logs/renewal.log 2>&1" | crontab -
-
 echo "==================================================="
 echo "Starting automatic renewal service..."
-echo "Certificates will be checked daily at 2:00 AM"
+echo "Certificates will be checked daily around 2:00 AM"
 echo "==================================================="
 
-# Start cron in foreground
-crond -f -l 2
+# Sleep loop for daily renewal checks
+while true; do
+    # Calculate seconds until next 2 AM
+    current_epoch=$(date +%s)
+    target_epoch=$(date -d "tomorrow 02:00:00" +%s)
+    sleep_seconds=$((target_epoch - current_epoch))
+    
+    echo "Next renewal check in $((sleep_seconds / 3600)) hours"
+    sleep $sleep_seconds
+    
+    # Run renewal check with tee (show output and log)
+    /usr/local/bin/renew-certs.sh 2>&1 | tee -a /etc/letsencrypt/logs/renewal.log
+done

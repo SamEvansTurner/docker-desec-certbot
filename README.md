@@ -173,7 +173,7 @@ The container can run as root if you omit the `--user` flag or comment out `user
 
 ## Automatic Renewal
 
-- Checks daily at **2:00 AM**
+- Checks daily around **2:00 AM**
 - Renews certificates with **<30 days remaining**
 - Certificates automatically copied to `/certs/`
 - No manual intervention required

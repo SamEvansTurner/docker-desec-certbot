@@ -4,7 +4,6 @@ FROM alpine:latest
 RUN apk add --no-cache \
     certbot \
     py3-pip \
-    dcron \
     bash \
     && pip3 install --no-cache-dir --break-system-packages certbot-dns-desec
 
