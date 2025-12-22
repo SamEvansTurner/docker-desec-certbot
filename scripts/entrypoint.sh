@@ -125,14 +125,25 @@ echo "==================================================="
 
 # Sleep loop for daily renewal checks
 while true; do
-    # Calculate seconds until next 2 AM
-    current_epoch=$(date +%s)
-    target_epoch=$(date -d "tomorrow 02:00:00" +%s)
-    sleep_seconds=$((target_epoch - current_epoch))
+    # Get current hour
+    current_hour=$(date +%H)
     
-    echo "Next renewal check in $((sleep_seconds / 3600)) hours"
+    # If it's past 2 AM, sleep until tomorrow 2 AM (26 hours minus current time past 2 AM)
+    # If it's before 2 AM, sleep until today 2 AM
+    if [ "$current_hour" -ge 2 ]; then
+        # Already past 2 AM today, calculate hours until 2 AM tomorrow
+        hours_until_2am=$((26 - current_hour))
+    else
+        # Before 2 AM today, calculate hours until 2 AM today
+        hours_until_2am=$((2 - current_hour))
+    fi
+    
+    # Add current minutes to be more precise
+    current_min=$(date +%M)
+    sleep_seconds=$(((hours_until_2am * 3600) - (current_min * 60)))
+    
+    echo "Next renewal check in approximately $hours_until_2am hours"
     sleep $sleep_seconds
     
-    # Run renewal check with tee (show output and log)
     /usr/local/bin/renew-certs.sh 2>&1 | tee -a /etc/letsencrypt/logs/renewal.log
 done
