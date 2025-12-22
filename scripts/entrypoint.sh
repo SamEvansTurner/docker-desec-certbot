@@ -89,7 +89,7 @@ for domain in "${DOMAIN_ARRAY[@]}"; do
     if [ ! -d "/etc/letsencrypt/live/$cert_name" ]; then
         echo "Requesting NEW certificate for $domain..."
         certbot certonly \
-          --dns-desec \
+          --authenticator dns-desec \
           --dns-desec-credentials /etc/letsencrypt/desec-credentials.ini \
           --non-interactive \
           --agree-tos \

@@ -5,7 +5,7 @@ echo "[$(date)] Starting certificate renewal check..."
 
 # Renew all certificates (Certbot only renews if <30 days remaining)
 certbot renew \
-  --dns-desec \
+  --authenticator dns-desec \
   --dns-desec-credentials /etc/letsencrypt/desec-credentials.ini \
   --non-interactive \
   --agree-tos
