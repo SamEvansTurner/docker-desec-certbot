@@ -6,7 +6,7 @@ RUN apk add --no-cache \
     py3-pip \
     dcron \
     bash \
-    && pip3 install --no-cache-dir certbot-dns-desec
+    && pip3 install --no-cache-dir --break-system-packages certbot-dns-desec
 
 # Create directories
 # Ownership will be determined by the user running the container
