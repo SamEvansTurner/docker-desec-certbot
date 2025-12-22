@@ -293,10 +293,6 @@ GitHub Actions automatically:
 - Pushes to GitHub Container Registry (GHCR)
 - Tags as `latest` and by commit SHA
 
-## License
-
-MIT License
-
 ## Support
 
 - **This project**: [GitHub Issues](https://github.com/SamEvansTurner/docker-desec-certbot/issues)
