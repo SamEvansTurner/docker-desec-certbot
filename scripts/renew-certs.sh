@@ -4,7 +4,9 @@ set -e
 echo "[$(date)] Starting certificate renewal check..."
 
 # Renew all certificates (Certbot only renews if <30 days remaining)
-certbot renew
+certbot renew \
+    --logs-dir /etc/letsencrypt/logs \
+    --work-dir /etc/letsencrypt/work \
 
 echo "[$(date)] Certificate renewal check completed."
 
