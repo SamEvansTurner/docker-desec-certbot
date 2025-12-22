@@ -95,6 +95,7 @@ for domain in "${DOMAIN_ARRAY[@]}"; do
           --agree-tos \
           --email "$EMAIL" \
           --cert-name "$cert_name" \
+          --logs-dir /etc/letsencrypt/logs \
           -d "$domain"
         
         if [ $? -eq 0 ]; then
