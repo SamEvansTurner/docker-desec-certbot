@@ -13,12 +13,13 @@ echo "[$(date)] Certificate renewal check completed."
 # Dynamically copy all certificates to /certs/ for easy access
 if [ -d "/etc/letsencrypt/live" ]; then
     for cert_dir in /etc/letsencrypt/live/*/; do
+
+        cert_name=$(basename "$cert_dir")
         # Skip the README directory
-        if [ -f "$cert_dir/README" ]; then
+        if [ "$cert_name" == "README" ]; then
             continue
         fi
-        
-        cert_name=$(basename "$cert_dir")
+
         echo "Copying certificate for: $cert_name"
         
         # Determine output filename (prefix wildcard certs with "wildcard.")
